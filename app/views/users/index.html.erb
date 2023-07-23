@@ -1,0 +1,13 @@
+<h1>Users</h1>
+
+<% @users.each do |user| %>
+  <div>
+    <h2><%= user.name %></h2>
+    <% if user.image.attached? %>
+      <%= image_tag user.image, class: "profile-image" %>
+    <% else %>
+      <p>NoImage</p>
+    <% end %>
+    <%= link_to "Show", user_path(user) %>
+  </div>
+<% end %>
