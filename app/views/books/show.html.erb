@@ -1,20 +1,18 @@
-<h2>User info</h2>
-<div>
-  <strong>name: <%= @user.name %></strong>
-  <% if @user.image.attached? %>
-    <%= image_tag @user.image, class: "profile-image" %>
-  <% else %>
-    <p>NoImage</p>
-  <% end %>
-  <p><%= @user.introduction %></p>
-</div>
+<%= render "users/user_info", user: @user %>
+<%= render "books/new", book: @book_new %>
 
 <h2>Book detail</h2>
 <div>
-  <p><strong>Title:</strong> <%= @book.title %></p>
-  <p><strong>Body:</strong> <%= @book.body %></p>
-  <p><strong>投稿者:</strong> <%= @book.user.name %></p>
-  <% if @book.user == current_user %>
+   <p><%= link_to image_tag(@book.user.get_profile_image(100, 100), class: "profile-image"), user_path(@book.user) %></p>
+   <p><%= link_to @book.user.name, user_path(@book.user) %></p>
+   <li><%= link_to @book.title, book_path(@book) %></li>
+   <p><%= @book.body %></p>
+
+
+  <% if current_user == @book.user %>
+    <%= link_to "Edit", edit_book_path(@book) %>
     <%= link_to "Destroy", book_path(@book), method: :delete %>
   <% end %>
+
+
 </div>
